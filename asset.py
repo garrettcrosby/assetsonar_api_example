@@ -12,7 +12,7 @@ class api_request(object):
         self.header = {"token": self.api_token}
 
     def get_users(self, page_num, last_page):
-        endpoint = ("https://sharpspring.assetsonar.com/members.api?page={0}"
+        endpoint = ("https://subdomain.assetsonar.com/members.api?page={0}"
                     .format(page_num))
         r = requests.get(endpoint, headers=self.header)
         response = r.json()
@@ -26,7 +26,7 @@ class api_request(object):
 
     def update_users(self, page):
         for user in page:
-            if user['email'] == 'garrett.crosby@sharpspring.com':
+            if user['email'] == 'email@example.com':
                 continue
             payload = {'user[email]': user['email'],
                        'user[first_name]': user['first_name'],
@@ -34,7 +34,7 @@ class api_request(object):
                        'user[role_id]': user['role_id'],
                        'user[subscribed_to_emails]': 'false',
                        'skip_confirmation_email': 'true'}
-            endpoint = ("https://sharpspring.assetsonar.com/members/{0}.api"
+            endpoint = ("https://subdomain.assetsonar.com/members/{0}.api"
                         .format(user['id']))
             r = requests.put(endpoint, headers=self.header, data=payload)
             response = r.json()
